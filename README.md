@@ -1,8 +1,7 @@
-# Welcome to your CDK TypeScript project!
+# CDK with Glue
 
-This is a blank project for TypeScript development with CDK.
+Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together with CDK.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Useful commands
 
