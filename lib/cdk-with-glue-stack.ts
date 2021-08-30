@@ -43,6 +43,7 @@ export class CdkWithGlueStack extends Stack {
     });
     dataBucket.grantRead(loadToDataBase.executionRole);
     dataTable.grantReadWriteData(loadToDataBase.executionRole);
+    dataTable.grant(loadToDataBase.executionRole, "dynamodb:DescribeTable");
 
     const convertCsvToOrc = new GlueJob(this, "convert-csv-to-orc", {
       jobName: "ConvertCsvToOrc",
