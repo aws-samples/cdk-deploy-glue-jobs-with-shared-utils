@@ -7,7 +7,7 @@
     "scripts": {
         "build": "npm-run-all build-*",
         "build-cdk": "tsc",
-        "build-glue": "cd src && pipenv install --dev",
+        "build-glue": "cd glue && pipenv install --dev && pipenv run build",
         "watch": "tsc -w",
         "test": "jest",
         "cdk": "cdk"

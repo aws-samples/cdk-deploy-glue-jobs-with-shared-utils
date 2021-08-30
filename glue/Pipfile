@@ -3,12 +3,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+build = "python setup.py bdist_egg"
+test = "pytest --cov=src"
+
 [packages]
 awsglue-local = "*"
 pyspark = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"

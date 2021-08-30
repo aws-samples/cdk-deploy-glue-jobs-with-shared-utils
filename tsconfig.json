@@ -26,6 +26,8 @@
         "outDir": "dist"
     },
     "exclude": [
+        "dist",
+        "glue",
         "node_modules",
         "cdk.out"
     ]
