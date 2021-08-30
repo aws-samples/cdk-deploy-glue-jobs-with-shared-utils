@@ -1,0 +1,30 @@
+{
+    "name": "cdk-with-glue",
+    "version": "0.1.0",
+    "bin": {
+        "cdk-with-glue": "bin/cdk-with-glue.js"
+    },
+    "scripts": {
+        "build": "npm-run-all build-*",
+        "build-cdk": "tsc",
+        "build-glue": "cd src && pipenv install --dev",
+        "watch": "tsc -w",
+        "test": "jest",
+        "cdk": "cdk"
+    },
+    "devDependencies": {
+        "@monocdk-experiment/assert": "^1.120.0",
+        "@types/jest": "^26.0.10",
+        "@types/node": "10.17.27",
+        "aws-cdk": "1.120.0",
+        "jest": "^26.4.2",
+        "npm-run-all": "^4.1.5",
+        "ts-jest": "^26.2.0",
+        "ts-node": "^9.0.0",
+        "typescript": "~3.9.7"
+    },
+    "dependencies": {
+        "monocdk": "^1.120.0",
+        "source-map-support": "^0.5.16"
+    }
+}
