@@ -28,28 +28,33 @@ if __name__ == "__main__":
 
     args = parse_args()
 
+    print(args)
+
     data_bucket = args.data_bucket
     input_data_path = args.input_data_path
     output_table = args.output_table
 
-    input_uri = utils.join_path("s3:", data_bucket, input_data_path)
+    input_uri = "s3://" + utils.join_path(data_bucket, input_data_path)
 
     print(f"Reading data from {input_uri}")
 
-    data_source = glue_context.create_dynamic_from_options(
+    data_source = glue_context.create_dynamic_frame_from_options(
         connection_type="s3",
         connection_options={
             "paths": [input_uri],
+            "recurse": True,
         },
         format="orc",
     )
+
+    data_source.toDF().printSchema()
 
     print(f"Writing data to {output_table}")
 
     glue_context.write_dynamic_frame.from_options(
         frame=data_source,
         connection_type="dynamodb",
-        connection_options={"dynamodb.ouput.tableName": output_table},
+        connection_options={"dynamodb.output.tableName": output_table},
     )
 
     job.commit()

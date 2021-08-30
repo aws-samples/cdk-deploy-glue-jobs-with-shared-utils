@@ -38,7 +38,7 @@ export class CdkWithGlueStack extends Stack {
       defaultArguments: {
         "--data-bucket": dataBucket.bucketName,
         "--input-data-path": "orc",
-        "--ouput-table": dataTable.tableName,
+        "--output-table": dataTable.tableName,
       },
     });
     dataBucket.grantRead(loadToDataBase.executionRole);

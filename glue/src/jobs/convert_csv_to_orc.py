@@ -28,28 +28,38 @@ if __name__ == "__main__":
 
     args = parse_args()
 
+    print(args)
+
     data_bucket = args.data_bucket
     input_data_path = args.input_data_path
     output_data_path = args.output_data_path
 
-    input_uri = utils.join_path("s3:", data_bucket, input_data_path)
-    output_uri = utils.join_path("s3:", data_bucket, output_data_path)
+    input_uri = "s3://" + utils.join_path(data_bucket, input_data_path)
+    output_uri = "s3://" + utils.join_path(data_bucket, output_data_path)
 
     print(f"Reading data from {input_uri}")
 
-    data_source = glue_context.create_dynamic_from_options(
+    data_source = glue_context.create_dynamic_frame_from_options(
         connection_type="s3",
         connection_options={
             "paths": [input_uri],
+            "recurse": True,
+            "withHeader": True,
+            "quoteChar": -1,
         },
         format="csv",
         format_options={"withHeader": True},
     )
 
+    data_source.toDF().printSchema()
+
+    dropped_fields = data_source.drop_fields(paths=[""])
+    dropped_fields.toDF().printSchema()
+
     print(f"Writing data to {output_uri}")
 
     glue_context.write_dynamic_frame.from_options(
-        frame=data_source,
+        frame=dropped_fields,
         connection_type="s3",
         connection_options={"path": output_uri},
         format="orc",

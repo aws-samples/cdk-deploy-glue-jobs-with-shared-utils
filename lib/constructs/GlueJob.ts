@@ -17,6 +17,9 @@ export class GlueJob extends Construct {
     this.executionRole = new iam.Role(this, "execution-role", {
       assumedBy: new iam.ServicePrincipal("glue.amazonaws.com"),
     });
+    this.executionRole.addManagedPolicy(
+      iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSGlueServiceRole"),
+    );
 
     const scriptAsset = new assets.Asset(this, "script-assest", {
       path: props.scriptLocation,
