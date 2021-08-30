@@ -22,7 +22,8 @@
         "esModuleInterop": true,
         "typeRoots": [
             "./node_modules/@types"
-        ]
+        ],
+        "outDir": "dist"
     },
     "exclude": [
         "node_modules",
