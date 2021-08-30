@@ -9,7 +9,9 @@
         "build-cdk": "tsc",
         "build-glue": "cd glue && pipenv install --dev && pipenv run build",
         "watch": "tsc -w",
-        "test": "jest",
+        "test": "npm-run-all test-*",
+        "test-cdk": "jest",
+        "test-glue": "cd glue && pipenv run test",
         "cdk": "cdk"
     },
     "devDependencies": {

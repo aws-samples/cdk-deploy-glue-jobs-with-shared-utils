@@ -11,3 +11,5 @@ ada.sh
 # Glue Python files
 glue/dist
 glue/build
+*egg
+.coverage
