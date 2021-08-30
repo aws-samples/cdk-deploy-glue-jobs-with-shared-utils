@@ -34,7 +34,7 @@ export class GlueJob extends Construct {
     const defaultArguments = props.defaultArguments;
     if (extraPyAssets) {
       const urls = extraPyAssets.map((asset) => asset.s3ObjectUrl).join(",");
-      defaultArguments["extraPyFiles"] = urls.length == 1 ? urls[0] : urls;
+      defaultArguments["--extra-py-files"] = urls.length == 1 ? urls[0] : urls;
     }
 
     this.job = new glue.CfnJob(this, "glue-job", {
