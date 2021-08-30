@@ -1,5 +1,7 @@
 # CDK with Glue
 
+https://gitlab.aws.dev/lagroujl/cdk-with-glue
+
 Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together with CDK.
 
 
