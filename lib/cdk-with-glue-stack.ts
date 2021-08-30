@@ -4,7 +4,6 @@ import {
   Construct,
   RemovalPolicy,
   aws_s3 as s3,
-  aws_glue as glue,
   aws_dynamodb as dynamodb,
   CfnOutput,
 } from "monocdk";
