@@ -12,5 +12,5 @@ setuptools.setup(
     classifiers=["Programming Language :: Python :: 3", "Operating System :: OS Independent"],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    python_requires="==3.7",
+    python_requires=">=3.7",
 )

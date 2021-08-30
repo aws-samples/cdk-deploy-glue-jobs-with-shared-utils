@@ -5,3 +5,9 @@ src/glue_src.egg-info/PKG-INFO
 src/glue_src.egg-info/SOURCES.txt
 src/glue_src.egg-info/dependency_links.txt
 src/glue_src.egg-info/top_level.txt
+src/jobs/__init__.py
+src/jobs/convert_csv_to_orc.py
+src/jobs/sample_etl_job.py
+src/utils/__init__.py
+src/utils/utils.py
+test/test_utils.py

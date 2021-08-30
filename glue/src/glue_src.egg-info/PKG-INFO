@@ -7,7 +7,7 @@ License: UNKNOWN
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: Operating System :: OS Independent
-Requires-Python: ==3.7
+Requires-Python: >=3.7
 
 UNKNOWN
 

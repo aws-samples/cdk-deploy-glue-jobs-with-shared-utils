@@ -10,6 +10,7 @@ test = "pytest --cov=src"
 [packages]
 awsglue-local = "*"
 pyspark = "*"
+glue-src = {editable = true, path = "."}
 
 [dev-packages]
 pytest = "*"

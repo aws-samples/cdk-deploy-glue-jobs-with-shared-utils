@@ -1,5 +1,5 @@
 from utils import utils
 
-if __name__ == "__main__":
-    print("Hello World")
+
+def test_some_utility_function():
     utils.some_utility_function()
