@@ -5,6 +5,7 @@
         "cdk-with-glue": "bin/cdk-with-glue.js"
     },
     "scripts": {
+        "format": "prettier -w lib bin",
         "build": "npm-run-all build-*",
         "build-cdk": "tsc",
         "build-glue": "cd glue && pipenv install --dev && pipenv run build",
@@ -21,6 +22,7 @@
         "aws-cdk": "1.120.0",
         "jest": "^26.4.2",
         "npm-run-all": "^4.1.5",
+        "prettier": "^2.3.2",
         "ts-jest": "^26.2.0",
         "ts-node": "^9.0.0",
         "typescript": "~3.9.7"

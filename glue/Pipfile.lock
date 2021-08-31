@@ -36,9 +36,7 @@
             "version": "==0.10.7"
         },
         "pyspark": {
-            "hashes": [
-                "sha256:3a19b71b8dc8dd91ebc943604a05e1ab01bce052456d42937035632d852d78dc"
-            ],
+            "hashes": ["sha256:3a19b71b8dc8dd91ebc943604a05e1ab01bce052456d42937035632d852d78dc"],
             "index": "pypi",
             "version": "==2.4.8"
         }
