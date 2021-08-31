@@ -20,7 +20,7 @@ export class CdkWithGlueStack extends Stack {
 
         const dataTable = new dynamodb.Table(this, "data-table", {
             partitionKey: {
-                name: "play_id",
+                name: "Index",
                 type: dynamodb.AttributeType.STRING,
             },
             removalPolicy: RemovalPolicy.DESTROY,

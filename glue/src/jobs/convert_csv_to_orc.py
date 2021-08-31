@@ -45,7 +45,7 @@ if __name__ == "__main__":
             "paths": [input_uri],
             "recurse": True,
             "withHeader": True,
-            "quoteChar": -1,
+            "quoteChar": '"',
         },
         format="csv",
         format_options={"withHeader": True},
@@ -53,13 +53,10 @@ if __name__ == "__main__":
 
     data_source.toDF().printSchema()
 
-    dropped_fields = data_source.drop_fields(paths=[""])
-    dropped_fields.toDF().printSchema()
-
     print(f"Writing data to {output_uri}")
 
     glue_context.write_dynamic_frame.from_options(
-        frame=dropped_fields,
+        frame=data_source,
         connection_type="s3",
         connection_options={"path": output_uri},
         format="orc",

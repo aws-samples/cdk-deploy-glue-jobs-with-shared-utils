@@ -13,7 +13,8 @@
         "test": "npm-run-all test-*",
         "test-cdk": "jest",
         "test-glue": "cd glue && pipenv run test",
-        "cdk": "cdk"
+        "cdk": "cdk",
+        "upload-data": "bin/upload-to-s3.sh"
     },
     "devDependencies": {
         "@monocdk-experiment/assert": "^1.120.0",
