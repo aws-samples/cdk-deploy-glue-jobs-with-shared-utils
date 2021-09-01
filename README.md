@@ -2,7 +2,8 @@
 
 https://gitlab.aws.dev/lagroujl/cdk-with-glue
 
-Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together with CDK.
+Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together
+with CDK.
 
 ## Motivation
 
@@ -68,14 +69,14 @@ Bucket created by this stack. Then there are two Glue Jobs. One will take the do
 and convert it to Apache ORC format, the other will read the ORC data and write to a DynamoDB table
 created by the CDK.
 
-After running `npm run cdk -- deploy` not the name of the S3 Bucket output and then run
+After running `npm run cdk -- deploy` note the name of the S3 Bucket that was output and then run
 
 ```
 npm run upload-data -- [Bucket Name Here]
 ```
 
-Then you can navigate to the Glue console in AWS. First run the job `ConvertCsvtoOrc`. Then when it
-is complete run the job `LoadToDatabase`. When both jobs are complete, navigate to the DynamoDB
+Then you can navigate to the Glue console in AWS. First run the job `ConvertCsvtoOrc`. Then when the
+job is complete, run the job `LoadToDatabase`. When both jobs are complete, navigate to the DynamoDB
 output by the CDK and inspect the Table. There should be records created with 3 columns, `Index`,
 `Eruption length (mins)`, and `Eruption wait (mins)`
 
