@@ -1,6 +1,4 @@
-# Using Shared Library Files with CDK
-
-https://gitlab.aws.dev/lagroujl/cdk-with-glue
+# Deploy Multiple Glue Jobs Using Shared Code with CDK
 
 Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together
 with CDK.
