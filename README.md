@@ -29,10 +29,11 @@ uploaded to S3 when the CloudFormation is deployed.
 This code contains a custom CDK Construct to automatically create Glue Execution Role with access to
 Script and Egg files. As a user, you simply have to provide the file location of the script and the
 location of the Egg. The location of the Egg will never change. This means that if you test locally,
-the location will be the same in a CICD environment.
+the location on the file sytem will be the same in a CICD environment.
 
-This example has a small utility that both Glue jobs use to manipulate S3 paths. This allows both
-jobs to share the code that is not strictly related to their business logic.
+This example has a small utility in `glue/src/utils/utils.py` that both Glue jobs use to manipulate
+S3 paths. This allows both deployed Glue jobs to share the code that is not strictly related to
+their business logic.
 
 ## Prerequisites
 
