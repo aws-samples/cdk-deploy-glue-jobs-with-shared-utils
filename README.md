@@ -6,12 +6,14 @@ with CDK.
 ## Motivation
 
 When writing multiple AWS Glue jobs, it is necessary to create a script file for each Glue Job. This
-means that naive approach where develops created independent scripts will quickly lead to violations
-of DRY principles. However, to use shared code between AWS Glue Jobs, it is a tricky process that
-requires the user to create a deployment package (Zip file, Wheel, or Egg) and upload it to S3.
+means that the naive approach where developers created independent scripts will quickly lead to
+violations of DRY principles. However, to use shared code between AWS Glue Jobs, it is a tricky
+process that requires the user to create a deployment package (either a Zip file, Wheel, or Egg) and
+upload it to S3. Updating this deployment package then requires it to be rebuilt and uploaded again.
 
 Automating this process will allow developers to write code faster without thinking about how their
-code is packaged, and deployed.
+code is packaged and deployed. It also needs to be automated in order to be built and deployed by
+CICD tools such as Jenkins.
 
 Building this solution with the CDK allows users to also use CloudFormation to automate the
 deployment and manage access control for all their related resources. For example, this might
@@ -27,7 +29,7 @@ uploaded to S3 when the CloudFormation is deployed.
 This code contains a custom CDK Construct to automatically create Glue Execution Role with access to
 Script and Egg files. As a user, you simply have to provide the file location of the script and the
 location of the Egg. The location of the Egg will never change. This means that if you test locally,
-the location on the file sytem will be the same in a CICD environment.
+the location on the file system will be the same in a CICD environment.
 
 This example has a small utility in `glue/src/utils/utils.py` that both Glue jobs use to manipulate
 S3 paths. This allows both deployed Glue jobs to share the code that is not strictly related to
@@ -63,7 +65,7 @@ deploy the Cloudformation stack containing the Glue jobs that utilize the shared
 
 ## Testing
 
-This example comes with a test script to download Ol' Faithful geyser data and uplooad it to an S3
+This example comes with a test script to download Ol' Faithful geyser data and upload it to an S3
 Bucket created by this stack. Then there are two Glue Jobs. One will take the downloaded CSV data
 and convert it to Apache ORC format, the other will read the ORC data and write to a DynamoDB table
 created by the CDK.
