@@ -37,9 +37,9 @@ their business logic.
 
 ## Prerequisites
 
--   Install Node and NPM
--   Install Python 3.7
--   Install pipenv
+    - Install [Node and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+    - Install [Python 3.7](https://www.python.org/downloads/)
+    - Install [pipenv](https://pipenv.pypa.io/en/latest/)
 
 ## Deploying
 
