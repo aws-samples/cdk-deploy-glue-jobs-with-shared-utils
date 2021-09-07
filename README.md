@@ -43,9 +43,17 @@ their business logic.
 
 ## Deploying
 
-From a terminal run `npm install` to install node dependencies.
+From the project root directory run the following commands:
 
-Then from a terminal run
+First, run 
+
+```
+npm install
+```
+
+To install all node libraries need by the project.
+
+Then run
 
 ```
 npm run build
