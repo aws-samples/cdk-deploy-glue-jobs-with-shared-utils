@@ -1,23 +1,25 @@
 # Deploy Multiple Glue Jobs Using Shared Code with CDK
 
-Demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together
-with CDK.
+This example code demonstrate how to automate the deployment of multiple glue jobs that utilize
+shared code together with CDK.
 
 ## Motivation
 
-When writing multiple AWS Glue jobs, it is necessary to create a script file for each Glue Job. This
-means that the naive approach where developers created independent scripts will quickly lead to
-violations of DRY principles. However, to use shared code between AWS Glue Jobs, it is a tricky
-process that requires the user to create a deployment package (either a Zip file, Wheel, or Egg) and
-upload it to S3. Updating this deployment package then requires it to be rebuilt and uploaded again.
+When writing multiple AWS Glue jobs, it is necessary to create a script file for each Glue job. The
+the naive approach where developers create independent scripts will quickly lead to violations of
+DRY principles. Using shared code between AWS Glue Jobs requires the user to create a deployment
+package (either a Zip file, Wheel, or Egg) and upload it to S3. Updating this deployment package
+then requires it to be rebuilt and uploaded again. This means that sharing code requires a mechanism
+to build and upload an artifact, instead of just uploading the source script. Then Glue jobs need to
+be configured to use the uploaded artifact in addition to the source script.
 
 Automating this process will allow developers to write code faster without thinking about how their
 code is packaged and deployed. It also needs to be automated in order to be built and deployed by
 CICD tools such as Jenkins.
 
-Building this solution with the CDK allows users to also use CloudFormation to automate the
+Building this solution with the CDK allows users to use CloudFormation to automate the
 deployment and manage access control for all their related resources. For example, this might
-include a Glue Database, S3 Buckets, or DynamoDB tables.
+include a Glue database, S3 buckets, or DynamoDB tables.
 
 ## Solution
 
@@ -26,10 +28,11 @@ Typescript and Python. Underneath, it uses Pipenv to install Python dependencies
 declare the package that will be built. When the build command runs, it creates an Egg that will be
 uploaded to S3 when the CloudFormation is deployed.
 
-This code contains a custom CDK Construct to automatically create Glue Execution Role with access to
-Script and Egg files. As a user, you simply have to provide the file location of the script and the
-location of the Egg. The location of the Egg will never change. This means that if you test locally,
-the location on the file system will be the same in a CICD environment.
+This code contains a custom CDK construct to automatically create an IAM Role for Glue to assume
+with access to Script and Egg files. The user provides the file location of the script and the
+location of the Egg, and the CDK will upload them to S3 when it deploys. The location of the Egg
+will never change. This means that if you test locally, the location on the file system will be the
+same in a CICD environment.
 
 This example has a small utility in `glue/src/utils/utils.py` that both Glue jobs use to manipulate
 S3 paths. This allows both deployed Glue jobs to share the code that is not strictly related to
@@ -45,7 +48,7 @@ their business logic.
 
 From the project root directory run the following commands:
 
-First, run 
+First, run
 
 ```
 npm install
