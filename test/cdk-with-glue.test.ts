@@ -7,18 +7,18 @@ describe("CdkWithGlueStack", () => {
 
     beforeAll(() => {
         const sut = new CdkWithGlue.CdkWithGlueStack(new App(), "StackUnderTest");
-        const template = Template.fromStack(sut);
+        template = Template.fromStack(sut);
     });
 
     test("Deploys 2 Glue Jobs", () => {
-        template.hasResource("AWS::Glue::Job", { countResources: 2 });
+        template.resourceCountIs("AWS::Glue::Job", 2);
     });
 
     test("Deploys an S3 Bucket", () => {
-        template.hasResource("AWS::S3::Bucket", { countResources: 1 });
+        template.resourceCountIs("AWS::S3::Bucket", 1);
     });
 
     test("Deploys a DynamoDB Table", () => {
-        template.hasResource("AWS::DynamoDB::Table", { countResources: 1 });
+        template.resourceCountIs("AWS::DynamoDB::Table", 1);
     });
 });
