@@ -1,6 +1,23 @@
 {
     "name": "cdk-with-glue",
-    "version": "0.1.0",
+    "description": "Demonstrate how to package shared code into multiple AWS Glue Jobs",
+    "license": "Apache-2.0",
+    "version": "1.0.0",
+    "author": {
+        "name": "Jacob LaGrou",
+        "email": "lagroujl@amazon.com",
+        "url": "https://github.com/lagroujl"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.aws.dev/lagroujl/cdk-with-glue"
+    },
+    "keywords": [
+        "aws",
+        "glue",
+        "cdk",
+        "pyspark"
+    ],
     "bin": {
         "cdk-with-glue": "bin/cdk-with-glue.js"
     },
