@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-build = "python setup.py bdist_egg"
+build = "python setup.py bdist_wheel"
 test = "pytest --cov=src"
 
 [packages]

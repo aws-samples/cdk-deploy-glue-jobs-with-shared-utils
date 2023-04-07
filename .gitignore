@@ -13,3 +13,5 @@ glue/dist
 glue/build
 *egg-info
 .coverage
+
+.DS_Store

@@ -35,7 +35,7 @@ export class CdkWithGlueStack extends Stack {
         const loadToDataBase = new GlueJob(this, "sample-etl-job", {
             jobName: "LoadToDatabase",
             scriptLocation: "glue/src/jobs/load_to_database.py",
-            extraPyFiles: ["glue/dist/glue_src-0.0.1-py3.7.egg"],
+            extraPyFiles: ["glue/dist/glue_src-0.0.1-py3-none-any.whl"],
             defaultArguments: {
                 "--data-bucket": dataBucket.bucketName,
                 "--input-data-path": "orc",
@@ -49,7 +49,7 @@ export class CdkWithGlueStack extends Stack {
         const convertCsvToOrc = new GlueJob(this, "convert-csv-to-orc", {
             jobName: "ConvertCsvToOrc",
             scriptLocation: "glue/src/jobs/convert_csv_to_orc.py",
-            extraPyFiles: ["glue/dist/glue_src-0.0.1-py3.7.egg"],
+            extraPyFiles: ["glue/dist/glue_src-0.0.1-py3-none-any.whl"],
             defaultArguments: {
                 "--data-bucket": dataBucket.bucketName,
                 "--input-data-path": "csv",
