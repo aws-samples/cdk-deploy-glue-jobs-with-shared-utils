@@ -12,9 +12,11 @@ Building this solution with the CDK allows users to use CloudFormation to automa
 
 ## Solution
 
-This solution uses NPM features to give users one `npm run build` command that builds all code, Typescript and Python. Underneath, it uses Pipenv to install Python dependencies and a `setup.py` to declare the package that will be built. When the build command runs, it creates an Egg that will be uploaded to S3 when the CloudFormation is deployed.
+This solution uses NPM features to give users one `npm run build` command that builds all code, Typescript and Python. Underneath, it uses Pipenv to install Python dependencies and a `setup.py` to declare the package that will be built. When the build command runs, it creates a Wheel that will be uploaded to S3 when the CloudFormation is deployed. The location of the Wheel will not change in a CICD environment. This means that if you test locally, the relative file path and file name used to deploy with be the same.
 
-This code contains a custom CDK construct to automatically create an IAM Role for Glue to assume with access to Script and Egg files. The user provides the file location of the script and the location of the Egg, and the CDK will upload them to S3 when it deploys. The location of the Egg will never change. This means that if you test locally, the location on the file system will be the same in a CICD environment.
+This code contains a custom CDK construct to automatically create an IAM Role for Glue to assume with access to Script and Wheel files. The user provides the file location of the script and the location of the Wheel and the CDK will upload them to S3 when it deploys. Once uploaded, the Glue Jobs will run using the code assets from S3. This will upload the normal script file, but it also uploads a Python Wheel that is referenced in the Glue job configuration as an extra Python file. This is where Glue downloads the extra python code that is outside of the main script.
+
+![](assets/deploy-cdk-with-glue.drawio.png)
 
 This example has a small utility in `glue/src/utils/utils.py` that both Glue jobs use to manipulate S3 paths. This allows both deployed Glue jobs to share the code that is not strictly related to their business logic.
 
