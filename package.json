@@ -1,7 +1,7 @@
 {
     "name": "cdk-with-glue",
     "description": "Demonstrate how to package shared code into multiple AWS Glue Jobs",
-    "license": "Apache-2.0",
+    "license": "MIT-0",
     "version": "1.0.0",
     "author": {
         "name": "Jacob LaGrou",
