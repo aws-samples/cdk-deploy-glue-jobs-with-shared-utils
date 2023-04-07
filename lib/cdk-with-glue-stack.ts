@@ -17,8 +17,9 @@ export class CdkWithGlueStack extends Stack {
             removalPolicy: RemovalPolicy.DESTROY,
             autoDeleteObjects: true,
         });
-        // Output bucket name so it is visible in command line for developer convenience
-        new CfnOutput(this, "data-bucket", { value: dataBucket.bucketName });
+        new CfnOutput(dataBucket, "name", {
+            value: dataBucket.bucketName,
+        });
 
         const dataTable = new dynamodb.Table(this, "data-table", {
             partitionKey: {
@@ -27,12 +28,7 @@ export class CdkWithGlueStack extends Stack {
             },
             removalPolicy: RemovalPolicy.DESTROY,
         });
-
-        new CfnOutput(this, "data-bucket-output", {
-            value: dataBucket.bucketName,
-        });
-
-        new CfnOutput(this, "data-table-output", {
+        new CfnOutput(dataTable, "name", {
             value: dataTable.tableName,
         });
 
