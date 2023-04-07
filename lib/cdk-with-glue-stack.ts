@@ -1,12 +1,12 @@
 import {
     Stack,
     StackProps,
-    Construct,
     RemovalPolicy,
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
     CfnOutput,
-} from "monocdk";
+} from "aws-cdk-lib";
+import { Construct } from "constructs";
 import { GlueJob } from "./constructs/GlueJob";
 
 export class CdkWithGlueStack extends Stack {
@@ -17,6 +17,8 @@ export class CdkWithGlueStack extends Stack {
             removalPolicy: RemovalPolicy.DESTROY,
             autoDeleteObjects: true,
         });
+        // Output bucket name so it is visible in command line for developer convenience
+        new CfnOutput(this, "data-bucket", { value: dataBucket.bucketName });
 
         const dataTable = new dynamodb.Table(this, "data-table", {
             partitionKey: {
@@ -44,9 +46,9 @@ export class CdkWithGlueStack extends Stack {
                 "--output-table": dataTable.tableName,
             },
         });
-        dataBucket.grantRead(loadToDataBase.executionRole);
-        dataTable.grantReadWriteData(loadToDataBase.executionRole);
-        dataTable.grant(loadToDataBase.executionRole, "dynamodb:DescribeTable");
+        dataBucket.grantRead(loadToDataBase);
+        dataTable.grantReadWriteData(loadToDataBase);
+        dataTable.grant(loadToDataBase, "dynamodb:DescribeTable");
 
         const convertCsvToOrc = new GlueJob(this, "convert-csv-to-orc", {
             jobName: "ConvertCsvToOrc",
@@ -58,6 +60,6 @@ export class CdkWithGlueStack extends Stack {
                 "--output-data-path": "orc",
             },
         });
-        dataBucket.grantReadWrite(convertCsvToOrc.executionRole);
+        dataBucket.grantReadWrite(convertCsvToOrc);
     }
 }

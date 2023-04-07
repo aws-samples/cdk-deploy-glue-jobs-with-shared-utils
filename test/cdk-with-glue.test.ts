@@ -1,24 +1,24 @@
-import { expect as expectCDK, countResources } from "@monocdk-experiment/assert";
-import { App } from "monocdk";
+import { Template } from "aws-cdk-lib/assertions";
+import { App } from "aws-cdk-lib/core";
 import * as CdkWithGlue from "../lib/cdk-with-glue-stack";
 
 describe("CdkWithGlueStack", () => {
-    const app = new App();
-    // WHEN
-    const sut = new CdkWithGlue.CdkWithGlueStack(app, "StackUnderTest");
+    let template: Template;
+
+    beforeAll(() => {
+        const sut = new CdkWithGlue.CdkWithGlueStack(new App(), "StackUnderTest");
+        const template = Template.fromStack(sut);
+    });
 
     test("Deploys 2 Glue Jobs", () => {
-        // THEN
-        expectCDK(sut).to(countResources("AWS::Glue::Job", 2));
+        template.hasResource("AWS::Glue::Job", { countResources: 2 });
     });
 
     test("Deploys an S3 Bucket", () => {
-        // THEN
-        expectCDK(sut).to(countResources("AWS::S3::Bucket", 1));
+        template.hasResource("AWS::S3::Bucket", { countResources: 1 });
     });
 
     test("Deploys a DynamoDB Table", () => {
-        // THEN
-        expectCDK(sut).to(countResources("AWS::DynamoDB::Table", 1));
+        template.hasResource("AWS::DynamoDB::Table", { countResources: 1 });
     });
 });

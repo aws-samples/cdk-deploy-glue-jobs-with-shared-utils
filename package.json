@@ -5,7 +5,7 @@
         "cdk-with-glue": "bin/cdk-with-glue.js"
     },
     "scripts": {
-        "format": "prettier -w lib bin",
+        "format": "prettier -w lib bin test",
         "build": "npm-run-all build-*",
         "build-cdk": "tsc",
         "build-glue": "cd glue && pipenv install --dev && pipenv run build",
@@ -17,19 +17,17 @@
         "upload-data": "bin/upload-to-s3.sh"
     },
     "devDependencies": {
-        "@monocdk-experiment/assert": "^1.120.0",
-        "@types/jest": "^26.0.10",
-        "@types/node": "10.17.27",
-        "aws-cdk": "1.120.0",
-        "jest": "^26.4.2",
+        "@types/jest": "^29.5.0",
+        "@types/node": "18.15.11",
+        "jest": "^29.5.0",
         "npm-run-all": "^4.1.5",
-        "prettier": "^2.3.2",
-        "ts-jest": "^26.2.0",
-        "ts-node": "^9.0.0",
-        "typescript": "~3.9.7"
+        "prettier": "^2.8.7",
+        "ts-jest": "^29.1.0",
+        "ts-node": "^10.9.1",
+        "typescript": "~5.0.4"
     },
     "dependencies": {
-        "monocdk": "^1.120.0",
-        "source-map-support": "^0.5.16"
+        "aws-cdk-lib": "^2.73.0",
+        "constructs": "^10.1.304"
     }
 }

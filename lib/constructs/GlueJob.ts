@@ -1,4 +1,5 @@
-import { Construct, aws_glue as glue, aws_iam as iam, aws_s3_assets as assets } from "monocdk";
+import { aws_glue as glue, aws_iam as iam, aws_s3_assets as assets } from "aws-cdk-lib";
+import { Construct } from "constructs";
 
 export interface GlueJobProps {
     jobName: string;
@@ -7,9 +8,13 @@ export interface GlueJobProps {
     defaultArguments: Record<string, string>;
 }
 
-export class GlueJob extends Construct {
+export class GlueJob extends Construct implements iam.IGrantable {
     readonly job: glue.CfnJob;
     readonly executionRole: iam.Role;
+
+    get grantPrincipal(): iam.IPrincipal {
+        return this.executionRole;
+    }
 
     constructor(scope: Construct, id: string, props: GlueJobProps) {
         super(scope, id);

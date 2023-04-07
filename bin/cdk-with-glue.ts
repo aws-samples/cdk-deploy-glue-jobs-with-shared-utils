@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-import "source-map-support/register";
-import { App } from "monocdk";
+import { App } from "aws-cdk-lib";
 import { CdkWithGlueStack } from "../lib/cdk-with-glue-stack";
 import fs from "fs";
 
