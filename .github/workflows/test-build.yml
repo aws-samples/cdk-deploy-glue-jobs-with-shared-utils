@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
+        python-version: ["3.7"]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,6 +27,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Setup python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
