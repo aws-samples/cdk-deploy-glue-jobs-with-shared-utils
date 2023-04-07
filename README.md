@@ -22,9 +22,9 @@ This example has a small utility in `glue/src/utils/utils.py` that both Glue job
 
 ## Prerequisites
 
-    - Install [Node and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-    - Install [Python 3.7](https://www.python.org/downloads/)
-    - Install [pipenv](https://pipenv.pypa.io/en/latest/)
+- Install [Node and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- Install [Python 3.7](https://www.python.org/downloads/)
+- Install [pipenv](https://pipenv.pypa.io/en/latest/)
 
 ## Deploying
 
