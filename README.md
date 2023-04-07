@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Deploy Multiple Glue Jobs Using Shared Code with CDK
 
 This example code demonstrate how to automate the deployment of multiple glue jobs that utilize shared code together with CDK.
@@ -75,3 +76,11 @@ npm run cdk -- destroy
 ```
 
 The S3 Bucket and DynamoDB are provided as outputs, so it is possible to double check that they are actually deleted
+
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
