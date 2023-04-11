@@ -14,8 +14,11 @@ export class CdkWithGlueStack extends Stack {
         super(scope, id, props);
 
         const dataBucket = new s3.Bucket(this, "data-bucket", {
+            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
             removalPolicy: RemovalPolicy.DESTROY,
+            enforceSSL: true,
             autoDeleteObjects: true,
+            serverAccessLogsPrefix: "accessLogs"
         });
         new CfnOutput(dataBucket, "name", {
             value: dataBucket.bucketName,
@@ -26,6 +29,7 @@ export class CdkWithGlueStack extends Stack {
                 name: "Index",
                 type: dynamodb.AttributeType.STRING,
             },
+            pointInTimeRecovery: true,
             removalPolicy: RemovalPolicy.DESTROY,
         });
         new CfnOutput(dataTable, "name", {

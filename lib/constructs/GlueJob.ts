@@ -1,4 +1,10 @@
-import { aws_glue as glue, aws_iam as iam, aws_s3_assets as assets } from "aws-cdk-lib";
+import {
+    aws_kms as kms,
+    aws_glue as glue,
+    aws_iam as iam,
+    aws_s3_assets as assets,
+    Names,
+} from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 export interface GlueJobProps {
@@ -45,6 +51,34 @@ export class GlueJob extends Construct implements iam.IGrantable {
             defaultArguments["--extra-py-files"] = urls.length == 1 ? urls[0] : urls;
         }
 
+        const encryptionKey = new kms.Key(this, "encryption-key", {
+            enableKeyRotation: true,
+        });
+        encryptionKey.grantEncryptDecrypt(this);
+
+        const securityConfiguration = new glue.CfnSecurityConfiguration(
+            this,
+            "security-configuration",
+            {
+                encryptionConfiguration: {
+                    s3Encryptions: [
+                        {
+                            s3EncryptionMode: "SSE-S3",
+                        },
+                    ],
+                    cloudWatchEncryption: {
+                        cloudWatchEncryptionMode: "SSE-KMS",
+                        kmsKeyArn: encryptionKey.keyArn,
+                    },
+                    jobBookmarksEncryption: {
+                        jobBookmarksEncryptionMode: "CSE-KMS",
+                        kmsKeyArn: encryptionKey.keyArn,
+                    },
+                },
+                name: `security-configuration-${Names.uniqueId(this)}`,
+            },
+        );
+
         this.job = new glue.CfnJob(this, "glue-job", {
             name: props.jobName,
             glueVersion: "3.0",
@@ -55,6 +89,7 @@ export class GlueJob extends Construct implements iam.IGrantable {
             },
             defaultArguments: defaultArguments,
             role: this.executionRole.roleArn,
+            securityConfiguration: securityConfiguration.name,
         });
     }
 }
