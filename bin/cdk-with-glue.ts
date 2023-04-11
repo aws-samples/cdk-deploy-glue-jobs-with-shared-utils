@@ -28,10 +28,15 @@ Aspects.of(app).add(new nag.AwsSolutionsChecks());
 nag.NagSuppressions.addStackSuppressions(cdkWithGlueStack, [
     {
         id: "AwsSolutions-IAM4",
-        reason: "This rule is overbearing and I am not going to bother fixing it",
+        reason: "Suppress warnings from using AWSGlueServiceRole policy",
+        appliesTo: [
+            {
+                regex: "/Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSGlueServiceRole/",
+            },
+        ],
     },
-    // {
-    //     id: "AwsSolutions-IAM5",
-    //     reason: "This rule is overbearing and I am not going to bother fixing it",
-    // },
+    {
+        id: "AwsSolutions-IAM5",
+        reason: "Allows use of wildcards in policies required by CDK permissions helper functions",
+    },
 ]);
