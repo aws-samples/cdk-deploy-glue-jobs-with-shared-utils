@@ -4,6 +4,7 @@ import {
     aws_iam as iam,
     aws_s3_assets as assets,
     Names,
+    RemovalPolicy,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
@@ -53,6 +54,8 @@ export class GlueJob extends Construct implements iam.IGrantable {
 
         const encryptionKey = new kms.Key(this, "encryption-key", {
             enableKeyRotation: true,
+            // As is, this code is for demo only. Consider retaining this key in a real production in environment
+            removalPolicy: RemovalPolicy.DESTROY,
         });
         encryptionKey.grantEncryptDecrypt(this);
 

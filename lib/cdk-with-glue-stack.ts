@@ -5,6 +5,7 @@ import {
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
     CfnOutput,
+    Duration,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { GlueJob } from "./constructs/GlueJob";
@@ -18,7 +19,15 @@ export class CdkWithGlueStack extends Stack {
             removalPolicy: RemovalPolicy.DESTROY,
             enforceSSL: true,
             autoDeleteObjects: true,
-            serverAccessLogsPrefix: "accessLogs"
+            serverAccessLogsPrefix: "accessLogs",
+            encryption: s3.BucketEncryption.S3_MANAGED,
+            lifecycleRules: [
+                {
+                    // This code is for demo only, delete data after 14 days to prevent
+                    // unnecessary charges
+                    expiration: Duration.days(14),
+                },
+            ],
         });
         new CfnOutput(dataBucket, "name", {
             value: dataBucket.bucketName,
