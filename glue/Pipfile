@@ -15,6 +15,7 @@ glue-src = {editable = true, path = "."}
 [dev-packages]
 pytest = "*"
 pytest-cov = "*"
+bandit = "*"
 
 [requires]
 python_version = "3.7"
