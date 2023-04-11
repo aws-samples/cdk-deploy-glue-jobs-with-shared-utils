@@ -61,7 +61,7 @@ This example comes with a test script to download Ol' Faithful geyser data and u
 After running `npm run cdk -- deploy` note the name of the S3 Bucket that was output and then run
 
 ```
-npm run upload-data -- [Bucket Name Here]
+npm run upload-data -- -b [Bucket Name] -p [Optional: CLI Profile]
 ```
 
 Then you can navigate to the Glue console in AWS. First run the job `ConvertCsvtoOrc`. Then when the job is complete, run the job `LoadToDatabase`. When both jobs are complete, navigate to the DynamoDB output by the CDK and inspect the Table. There should be records created with 3 columns, `Index`, `Eruption length (mins)`, and `Eruption wait (mins)`
