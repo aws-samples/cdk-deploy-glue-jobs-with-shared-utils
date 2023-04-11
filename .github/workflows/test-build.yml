@@ -41,4 +41,4 @@ jobs:
     - name: Run bandit
       uses: tj-actions/bandit@v5.1
       with:
-        targets: "glue"
+        targets: "glue/src"
