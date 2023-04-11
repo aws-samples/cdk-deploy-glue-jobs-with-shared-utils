@@ -15,7 +15,7 @@ export interface GlueJobProps {
     defaultArguments: Record<string, string>;
 }
 
-export class GlueServiceRolePolicy extends iam.PolicyDocument {
+class GlueServiceRolePolicy extends iam.PolicyDocument {
     constructor() {
         super({
             statements: [
