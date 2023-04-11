@@ -15,6 +15,30 @@ export interface GlueJobProps {
     defaultArguments: Record<string, string>;
 }
 
+export class GlueServiceRolePolicy extends iam.PolicyDocument {
+    constructor() {
+        super({
+            statements: [
+                new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
+                    actions: [
+                        "logs:CreateLogGroup",
+                        "logs:CreateLogStream",
+                        "logs:PutLogEvents",
+                        "logs:AssociateKmsKey",
+                    ],
+                    resources: ["arn:aws:logs:*:*:/aws-glue/*"],
+                }),
+                new iam.PolicyStatement({
+                    effect: iam.Effect.ALLOW,
+                    actions: ["glue:GetSecurityConfiguration"],
+                    resources: ["*"],
+                }),
+            ],
+        });
+    }
+}
+
 export class GlueJob extends Construct implements iam.IGrantable {
     readonly job: glue.CfnJob;
     readonly executionRole: iam.Role;
@@ -28,10 +52,10 @@ export class GlueJob extends Construct implements iam.IGrantable {
 
         this.executionRole = new iam.Role(this, "execution-role", {
             assumedBy: new iam.ServicePrincipal("glue.amazonaws.com"),
+            inlinePolicies: {
+                "glue-service-policy": new GlueServiceRolePolicy(),
+            },
         });
-        this.executionRole.addManagedPolicy(
-            iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSGlueServiceRole"),
-        );
 
         const scriptAsset = new assets.Asset(this, "script-assest", {
             path: props.scriptLocation,
@@ -57,7 +81,7 @@ export class GlueJob extends Construct implements iam.IGrantable {
             // As is, this code is for demo only. Consider retaining this key in a real production in environment
             removalPolicy: RemovalPolicy.DESTROY,
         });
-        encryptionKey.grantEncryptDecrypt(this);
+        encryptionKey.grantEncryptDecrypt(new iam.ServicePrincipal("logs.amazonaws.com"));
 
         const securityConfiguration = new glue.CfnSecurityConfiguration(
             this,
