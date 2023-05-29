@@ -47,6 +47,6 @@
         "aws-cdk": "^2.79.1",
         "aws-cdk-lib": "^2.79.1",
         "cdk-nag": "^2.27.8",
-        "constructs": "^10.2.24"
+        "constructs": "^10.2.36"
     }
 }
